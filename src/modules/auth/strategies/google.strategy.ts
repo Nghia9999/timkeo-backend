@@ -9,8 +9,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     const clientID = configService.get<string>('GOOGLE_CLIENT_ID');
     const clientSecret = configService.get<string>('GOOGLE_CLIENT_SECRET');
     const callbackURL =
+      // configService.get<string>('GOOGLE_CALLBACK_URL') ||
+      // 'http://localhost:4000/auth/google/callback';
       configService.get<string>('GOOGLE_CALLBACK_URL') ||
-      'http://localhost:4000/auth/google/callback';
+      `${process.env.BACKEND_URL}/auth/google/callback`;
 
     if (!clientID || !clientSecret) {
       throw new Error(
